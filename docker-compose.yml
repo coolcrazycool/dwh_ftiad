@@ -1,0 +1,54 @@
+version: '3.7'
+
+services:
+  postgresql-master:
+    image: postgres:14.5
+    container_name: postgresql_master
+    restart: always
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./slave:/var/lib/postgresql/slave
+      - ./init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+      - ./init_master.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_HOST=postgresql_master
+      - POSTGRES_REPLICA_USER=replica
+      - POSTGRES_REPLICA_PASSWORD=replica
+    networks:
+      - db-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 60s
+      timeout: 2s
+      retries: 5
+  postgresql-slave:
+    image: postgres:14.5
+    container_name: postgresql_slave
+    restart: always
+    ports:
+      - '5433:5432'
+    volumes:
+      - ./slave:/var/lib/postgresql/data
+      - ./init_slave.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./postgresql.conf:/etc/postgresql/postgresql.conf
+    depends_on:
+      postgresql-master:
+        condition: service_healthy
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_REPLICA_USER=replica
+    networks:
+      - db-network
+
+networks:
+  db-network:
+    driver: bridge
