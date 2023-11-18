@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-cp -f /etc/postgresql/postgresql.conf /var/lib/postgresql/data
+echo "wal_level = logical" >> /var/lib/postgresql/data/postgresql.conf
 
 psql --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
 	CREATE USER $POSTGRES_REPLICA_USER WITH REPLICATION ENCRYPTED PASSWORD '$POSTGRES_REPLICA_PASSWORD';

@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS "system"."manufacturers"
 (
     "manufacturer_id"   SERIAL,
     "manufacturer_name" varchar(100) NOT NULL,
+    "manufacturer_legal_entity" varchar(100) NOT NULL,
     CONSTRAINT "pk_manufacturers" PRIMARY KEY ("manufacturer_id")
 );
 
@@ -20,6 +21,9 @@ CREATE TABLE IF NOT EXISTS "system"."products"
     "manufacturer_id" BIGINT,
     "product_id"      SERIAL,
     "product_name"    varchar(255) NOT NULL,
+    "product_picture_url"    varchar(255) NOT NULL,
+    "product_description"    varchar(255) NOT NULL,
+    "product_restriction"    INT NOT NULL,
     CONSTRAINT "pk_products" PRIMARY KEY ("product_id"),
     CONSTRAINT "fk_categories" FOREIGN KEY ("category_id") REFERENCES "system"."categories" ("category_id"),
     CONSTRAINT "fk_manufacturers" FOREIGN KEY ("manufacturer_id") REFERENCES "system"."manufacturers" ("manufacturer_id")
@@ -29,6 +33,9 @@ CREATE TABLE IF NOT EXISTS "system"."stores"
 (
     "store_id"   SERIAL,
     "store_name" varchar(255) NOT NULL,
+    "store_country" varchar(255) NOT NULL,
+    "store_city" varchar(255) NOT NULL,
+    "store_address" varchar(255) NOT NULL,
     CONSTRAINT "pk_stores" PRIMARY KEY ("store_id")
 );
 
@@ -37,6 +44,8 @@ CREATE TABLE IF NOT EXISTS "system"."customers"
     "customer_id"    SERIAL,
     "customer_fname" varchar(100) NOT NULL,
     "customer_lname" varchar(100) NOT NULL,
+    "customer_gender" varchar(100) NOT NULL,
+    "customer_phone" varchar(100) NOT NULL,
     CONSTRAINT "pk_customers" PRIMARY KEY ("customer_id")
 );
 
@@ -50,10 +59,12 @@ CREATE TABLE IF NOT EXISTS "system"."price_change"
 
 CREATE TABLE IF NOT EXISTS "system"."deliveries"
 (
+    "delivery_id"   BIGINT  NOT NULL,
     "store_id"      BIGINT  NOT NULL,
     "product_id"    BIGINT  NOT NULL,
     "delivery_date" DATE    NOT NULL,
     "product_count" INTEGER NOT NULL,
+    CONSTRAINT "pk_deliveries" PRIMARY KEY ("delivery_id"),
     CONSTRAINT "fk_stores" FOREIGN KEY ("store_id") REFERENCES "system"."stores" ("store_id"),
     CONSTRAINT "fk_products" FOREIGN KEY ("product_id") REFERENCES "system"."products" ("product_id")
 );
@@ -64,6 +75,7 @@ CREATE TABLE IF NOT EXISTS "system"."purchases"
     "customer_id"   BIGINT    NOT NULL,
     "purchase_id"   SERIAL,
     "purchase_date" TIMESTAMP NOT NULL,
+    "purchase_payment_type" varchar(100) NOT NULL,
     CONSTRAINT "pk_purchases" PRIMARY KEY ("purchase_id"),
     CONSTRAINT "fk_stores" FOREIGN KEY ("store_id") REFERENCES "system"."stores" ("store_id"),
     CONSTRAINT "fk_customers" FOREIGN KEY ("customer_id") REFERENCES "system"."customers" ("customer_id")

@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: system
+    database: postgres
+    schema: system
+    tables:
+      - name: customers
+      - name: stores
+      - name: purchases
+      - name: purchase_items
+      - name: manufacturers
+      - name: categories
+      - name: products
+      - name: deliveries
+      - name: price_change
