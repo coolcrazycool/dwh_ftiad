@@ -201,13 +201,30 @@ services:
     ports:
       - '5434:5432'
     volumes:
-      - ./init_dwh.sql:/docker-entrypoint-initdb.d/init_dwh.sql
+      - ./init_dwh_pg.sql:/docker-entrypoint-initdb.d/init_dwh_pg.sql
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
       - POSTGRES_PORT=5432
       - POSTGRES_HOST=postgresql_dwh
+    networks:
+      - db-network
+
+  clickhouse:
+    image: bitnami/clickhouse:latest
+    environment:
+      CLICKHOUSE_ADMIN_USER: 'clickhouse'
+      CLICKHOUSE_ADMIN_PASSWORD: 'clickhouse'
+    volumes:
+      - ./init_dwh_ch.sql:/docker-entrypoint-startdb.d/init_dwh_ch.sql
+      - ./init_clickhouse.sh:/docker-entrypoint-startdb.d/init_clickhouse.sh
+    ports:
+      - '8123:8123'
+      - '9000:9000'
+      - '9004:9004'
+      - '9005:9005'
+      - '9009:9009'
     networks:
       - db-network
 

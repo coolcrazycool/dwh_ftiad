@@ -1,7 +1,4 @@
 from confluent_kafka import Consumer
-from confluent_kafka import KafkaError, KafkaException
-import sys
-import re
 import hashlib
 from datetime import date
 import json
@@ -11,7 +8,8 @@ from sqlalchemy import create_engine
 import time
 import datetime
 
-engine = create_engine('postgresql://postgres:postgres@localhost:5434/postgres')
+# engine = create_engine('postgresql://postgres:postgres@localhost:5434/postgres')
+engine = create_engine('clickhouse://clickhouse:clickhouse@localhost:8123')
 
 
 def insert_category(before, after):
@@ -196,7 +194,7 @@ def insert_purchase(after):
             "record_source": ["3NF"]
         })
         df.to_sql('link_purchase_customer', engine, if_exists="append", schema='dbt_detailed', index=False)
-    if old["product_count"] is None and "product_id" in after.keys():
+    if (old["product_count"] is None or old["product_count"] == 0) and "product_id" in after.keys():
         df = pd.DataFrame.from_dict({
             "link_product_purchase_pk": [
                 hashlib.md5((str(after["purchase_id"]) + str(after["product_id"])).encode()).hexdigest()],
@@ -365,11 +363,8 @@ if __name__ == "__main__":
     ]
     print("Start creating topics")
     admin_client.create_topics([NewTopic(topic, 1, 1) for topic in topic_list])
-    time.sleep(1)
+    time.sleep(5)
     print("Ready to operate")
-    # with open("debezium/topics.json", "r") as f:
-    #     file = f.read()
-    #     print([tp for tp in re.findall("""(?<="topic_name":")(.*?)(?=")""", file) if tp.startswith("postgres.system")])
 
     consumer = Consumer(conf)
     basic_consume_loop(consumer, topic_list)
