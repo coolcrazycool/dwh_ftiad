@@ -25,7 +25,7 @@ services:
       - db-network
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-      interval: 60s
+      interval: 120s
       timeout: 2s
       retries: 5
   postgresql-slave:

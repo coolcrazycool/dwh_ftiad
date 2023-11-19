@@ -1,0 +1,523 @@
+{
+  "schema": "dbt_detailed",
+  "postgres.system.categories": {
+    "sat": {
+      "table": "sat_category_details",
+      "pk": {
+        "from": "category_id",
+        "as": "category_pk"
+      },
+      "hashdiff": {
+        "from": [
+          "category_id",
+          "category_name"
+        ],
+        "as": "category_hashdiff"
+      },
+      "start_time": {
+        "from": null,
+        "as": "effective_from"
+      },
+      "adds": {
+        "category_name": "category_name"
+      }
+    },
+    "hub": {
+      "table": "hub_categories",
+      "pk": {
+        "from": "category_id",
+        "as": "category_pk"
+      },
+      "id": {
+        "from": "category_id",
+        "as": "category_id"
+      }
+    },
+    "load_date": {
+      "from": null,
+      "as": "load_date"
+    },
+    "record_source": {
+      "from": "3NF",
+      "as": "record_source"
+    }
+  },
+  "postgres.system.customers": {
+    "sat": {
+      "table": "sat_customer_details",
+      "pk": {
+        "from": "customer_id",
+        "as": "customer_pk"
+      },
+      "hashdiff": {
+        "from": [
+          "customer_id",
+          "customer_fname",
+          "customer_lname",
+          "customer_gender",
+          "customer_phone"
+        ],
+        "as": "customer_hashdiff"
+      },
+      "start_time": {
+        "from": null,
+        "as": "effective_from"
+      },
+      "adds": {
+        "customer_fname": "customer_fname",
+        "customer_lname": "customer_lname",
+        "customer_gender": "customer_gender",
+        "customer_phone": "customer_phone"
+      }
+    },
+    "hub": {
+      "table": "hub_customers",
+      "pk": {
+        "from": "customer_id",
+        "as": "customer_pk"
+      },
+      "id": {
+        "from": "customer_id",
+        "as": "customer_id"
+      }
+    },
+    "load_date": {
+      "from": null,
+      "as": "load_date"
+    },
+    "record_source": {
+      "from": "3NF",
+      "as": "record_source"
+    }
+  },
+  "postgres.system.deliveries": {
+    "sat": {
+      "table": "sat_delivery_details",
+      "pk": {
+        "from": "delivery_id",
+        "as": "delivery_pk"
+      },
+      "hashdiff": {
+        "from": [
+          "delivery_id",
+          "delivery_date",
+          "product_count"
+        ],
+        "as": "delivery_hashdiff"
+      },
+      "start_time": {
+        "from": null,
+        "as": "effective_from"
+      },
+      "adds": {
+        "delivery_date": "#delivery_date",
+        "product_count": "product_count"
+      }
+    },
+    "hub": {
+      "table": "hub_deliveries",
+      "pk": {
+        "from": "delivery_id",
+        "as": "delivery_pk"
+      },
+      "id": {
+        "from": "delivery_id",
+        "as": "delivery_id"
+      }
+    },
+    "link": [
+      {
+        "table": "link_product_delivery",
+        "pk": {
+          "from": [
+            "product_id",
+            "delivery_id"
+          ],
+          "as": "link_product_delivery_pk"
+        },
+        "left_pk": {
+          "from": "product_id",
+          "as": "product_pk"
+        },
+        "right_pk": {
+          "from": "delivery_id",
+          "as": "delivery_pk"
+        }
+      }
+    ],
+    "load_date": {
+      "from": null,
+      "as": "load_date"
+    },
+    "record_source": {
+      "from": "3NF",
+      "as": "record_source"
+    }
+  },
+  "postgres.system.manufacturers": {
+    "sat": {
+      "table": "sat_manufacture_details",
+      "pk": {
+        "from": "manufacturer_id",
+        "as": "manufacturer_pk"
+      },
+      "hashdiff": {
+        "from": [
+          "manufacturer_id",
+          "manufacturer_name",
+          "manufacturer_legal_entity"
+        ],
+        "as": "manufacturer_hashdiff"
+      },
+      "start_time": {
+        "from": null,
+        "as": "effective_from"
+      },
+      "adds": {
+        "manufacturer_name": "manufacturer_name",
+        "manufacturer_legal_entity": "manufacturer_legal_entity"
+      }
+    },
+    "hub": {
+      "table": "hub_manufacturers",
+      "pk": {
+        "from": "manufacturer_id",
+        "as": "manufacturer_pk"
+      },
+      "id": {
+        "from": "manufacturer_id",
+        "as": "manufacturer_id"
+      }
+    },
+    "load_date": {
+      "from": null,
+      "as": "load_date"
+    },
+    "record_source": {
+      "from": "3NF",
+      "as": "record_source"
+    }
+  },
+  "postgres.system.price_change": {
+    "sat": {
+      "table": "sat_product_details",
+      "update": {
+        "product_price": "new_price"
+      },
+      "pk": {
+        "from": "product_id",
+        "as": "product_pk"
+      },
+      "hashdiff": {
+        "from": [
+          "product_id",
+          "product_name",
+          "product_picture_url",
+          "product_description",
+          "product_restriction",
+          "product_price"
+        ],
+        "as": "product_hashdiff"
+      },
+      "start_time": {
+        "from": "price_change_ts#1000000",
+        "as": "effective_from"
+      },
+      "adds": {
+        "product_name": "product_name",
+        "product_picture_url": "product_picture_url",
+        "product_description": "product_description",
+        "product_restriction": "product_restriction",
+        "product_price": "product_price"
+      }
+    },
+    "load_date": {
+      "from": null,
+      "as": "load_date"
+    },
+    "record_source": {
+      "from": "3NF",
+      "as": "record_source"
+    }
+  },
+  "postgres.system.products": {
+    "sat": {
+      "table": "sat_product_details",
+      "pk": {
+        "from": "product_id",
+        "as": "product_pk"
+      },
+      "hashdiff": {
+        "from": [
+          "product_id",
+          "product_name",
+          "product_picture_url",
+          "product_description",
+          "product_restriction"
+        ],
+        "as": "product_hashdiff"
+      },
+      "start_time": {
+        "from": null,
+        "as": "effective_from"
+      },
+      "adds": {
+        "product_name": "product_name",
+        "product_picture_url": "product_picture_url",
+        "product_description": "product_description",
+        "product_restriction": "product_restriction",
+        "product_price": null
+      }
+    },
+    "hub": {
+      "table": "hub_products",
+      "pk": {
+        "from": "product_id",
+        "as": "product_pk"
+      },
+      "id": {
+        "from": "product_id",
+        "as": "product_id"
+      }
+    },
+    "link": [
+      {
+        "table": "link_product_category",
+        "pk": {
+          "from": [
+            "product_id",
+            "category_id"
+          ],
+          "as": "link_product_category_pk"
+        },
+        "left_pk": {
+          "from": "product_id",
+          "as": "product_pk"
+        },
+        "right_pk": {
+          "from": "category_id",
+          "as": "category_pk"
+        }
+      },
+      {
+        "table": "link_product_manufacture",
+        "pk": {
+          "from": [
+            "product_id",
+            "manufacturer_id"
+          ],
+          "as": "link_product_manufacture_pk"
+        },
+        "left_pk": {
+          "from": "product_id",
+          "as": "product_pk"
+        },
+        "right_pk": {
+          "from": "manufacturer_id",
+          "as": "manufacturer_pk"
+        }
+      }
+    ],
+    "load_date": {
+      "from": null,
+      "as": "load_date"
+    },
+    "record_source": {
+      "from": "3NF",
+      "as": "record_source"
+    }
+  },
+  "postgres.system.purchase_items": {
+    "sat": {
+      "table": "sat_purchase_details",
+      "update": {
+        "product_count": "product_count",
+        "product_price": "product_price"
+      },
+      "pk": {
+        "from": "purchase_id",
+        "as": "purchase_pk"
+      },
+      "hashdiff": {
+        "from": [
+          "purchase_id",
+          "purchase_date",
+          "purchase_payment_type",
+          "product_count",
+          "product_price"
+        ],
+        "as": "purchase_hashdiff"
+      },
+      "start_time": {
+        "from": null,
+        "as": "effective_from"
+      },
+      "adds": {
+        "purchase_date": "purchase_date",
+        "purchase_payment_type": "purchase_payment_type",
+        "product_count": "product_count",
+        "product_price": "product_price"
+      }
+    },
+    "link": [
+      {
+        "table": "link_purchase_product",
+        "pk": {
+          "from": [
+            "product_id",
+            "purchase_id"
+          ],
+          "as": "link_product_purchase_pk"
+        },
+        "left_pk": {
+          "from": "product_id",
+          "as": "product_pk"
+        },
+        "right_pk": {
+          "from": "purchase_id",
+          "as": "purchase_pk"
+        }
+      }
+    ],
+    "load_date": {
+      "from": null,
+      "as": "load_date"
+    },
+    "record_source": {
+      "from": "3NF",
+      "as": "record_source"
+    }
+  },
+  "postgres.system.purchases": {
+    "sat": {
+      "table": "sat_purchase_details",
+      "pk": {
+        "from": "purchase_id",
+        "as": "purchase_pk"
+      },
+      "hashdiff": {
+        "from": [
+          "purchase_id",
+          "purchase_date",
+          "purchase_payment_type"
+        ],
+        "as": "purchase_hashdiff"
+      },
+      "start_time": {
+        "from": null,
+        "as": "effective_from"
+      },
+      "adds": {
+        "purchase_date": "purchase_date#1000000",
+        "purchase_payment_type": "purchase_payment_type",
+        "product_count": null,
+        "product_price": null
+      }
+    },
+    "hub": {
+      "table": "hub_purchases",
+      "pk": {
+        "from": "purchase_id",
+        "as": "purchase_pk"
+      },
+      "id": {
+        "from": "purchase_id",
+        "as": "purchase_id"
+      }
+    },
+    "link": [
+      {
+        "table": "link_purchase_store",
+        "pk": {
+          "from": [
+            "store_id",
+            "purchase_id"
+          ],
+          "as": "link_store_purchase_pk"
+        },
+        "left_pk": {
+          "from": "store_id",
+          "as": "store_pk"
+        },
+        "right_pk": {
+          "from": "purchase_id",
+          "as": "purchase_pk"
+        }
+      },
+      {
+        "table": "link_purchase_customer",
+        "pk": {
+          "from": [
+            "customer_id",
+            "purchase_id"
+          ],
+          "as": "link_customer_purchase_pk"
+        },
+        "left_pk": {
+          "from": "purchase_id",
+          "as": "purchase_pk"
+        },
+        "right_pk": {
+          "from": "customer_id",
+          "as": "customer_pk"
+        }
+      }
+    ],
+    "load_date": {
+      "from": null,
+      "as": "load_date"
+    },
+    "record_source": {
+      "from": "3NF",
+      "as": "record_source"
+    }
+  },
+  "postgres.system.stores": {
+    "sat": {
+      "table": "sat_store_details",
+      "pk": {
+        "from": "store_id",
+        "as": "store_pk"
+      },
+      "hashdiff": {
+        "from": [
+          "store_id",
+          "store_name",
+          "store_country",
+          "store_city",
+          "store_address"
+        ],
+        "as": "store_hashdiff"
+      },
+      "start_time": {
+        "from": null,
+        "as": "effective_from"
+      },
+      "adds": {
+        "store_name": "store_name",
+        "store_country": "store_country",
+        "store_city": "store_city",
+        "store_address": "store_address"
+      }
+    },
+    "hub": {
+      "table": "hub_stores",
+      "pk": {
+        "from": "store_id",
+        "as": "store_pk"
+      },
+      "id": {
+        "from": "store_id",
+        "as": "store_id"
+      }
+    },
+    "load_date": {
+      "from": null,
+      "as": "load_date"
+    },
+    "record_source": {
+      "from": "3NF",
+      "as": "record_source"
+    }
+  }
+}
