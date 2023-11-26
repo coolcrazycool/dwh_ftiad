@@ -1,4 +1,5 @@
 CREATE DATABASE IF NOT EXISTS "dbt_detailed";
+CREATE DATABASE IF NOT EXISTS "presentation";
 
 create table IF NOT EXISTS dbt_detailed.hub_categories
 (
@@ -7,9 +8,9 @@ create table IF NOT EXISTS dbt_detailed.hub_categories
     load_date     date,
     record_source text
 )
-ENGINE = MergeTree
-ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    ENGINE = MergeTree
+        ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.hub_customers
 (
@@ -18,8 +19,8 @@ create table IF NOT EXISTS dbt_detailed.hub_customers
     load_date     date,
     record_source text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.hub_deliveries
 (
@@ -28,8 +29,8 @@ create table IF NOT EXISTS dbt_detailed.hub_deliveries
     load_date     date,
     record_source text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.hub_manufacturers
 (
@@ -38,8 +39,8 @@ create table IF NOT EXISTS dbt_detailed.hub_manufacturers
     load_date       date,
     record_source   text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.hub_products
 (
@@ -48,8 +49,8 @@ create table IF NOT EXISTS dbt_detailed.hub_products
     load_date     date,
     record_source text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.hub_purchases
 (
@@ -58,8 +59,8 @@ create table IF NOT EXISTS dbt_detailed.hub_purchases
     load_date     date,
     record_source text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.hub_stores
 (
@@ -68,8 +69,8 @@ create table IF NOT EXISTS dbt_detailed.hub_stores
     load_date     date,
     record_source text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.link_product_category
 (
@@ -79,8 +80,8 @@ create table IF NOT EXISTS dbt_detailed.link_product_category
     load_date                date,
     record_source            text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.link_product_delivery
 (
@@ -90,8 +91,8 @@ create table IF NOT EXISTS dbt_detailed.link_product_delivery
     load_date                date,
     record_source            text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.link_product_manufacture
 (
@@ -101,8 +102,8 @@ create table IF NOT EXISTS dbt_detailed.link_product_manufacture
     load_date                   date,
     record_source               text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.link_purchase_customer
 (
@@ -112,8 +113,8 @@ create table IF NOT EXISTS dbt_detailed.link_purchase_customer
     load_date                 date,
     record_source             text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.link_purchase_product
 (
@@ -123,8 +124,8 @@ create table IF NOT EXISTS dbt_detailed.link_purchase_product
     load_date                date,
     record_source            text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.link_purchase_store
 (
@@ -134,8 +135,8 @@ create table IF NOT EXISTS dbt_detailed.link_purchase_store
     load_date              date,
     record_source          text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.sat_category_details
 (
@@ -146,8 +147,8 @@ create table IF NOT EXISTS dbt_detailed.sat_category_details
     load_date         date,
     record_source     text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.sat_customer_details
 (
@@ -161,8 +162,8 @@ create table IF NOT EXISTS dbt_detailed.sat_customer_details
     load_date         date,
     record_source     text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.sat_delivery_details
 (
@@ -174,8 +175,8 @@ create table IF NOT EXISTS dbt_detailed.sat_delivery_details
     load_date         date,
     record_source     text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.sat_manufacture_details
 (
@@ -187,8 +188,8 @@ create table IF NOT EXISTS dbt_detailed.sat_manufacture_details
     load_date                 date,
     record_source             text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.sat_product_details
 (
@@ -203,8 +204,8 @@ create table IF NOT EXISTS dbt_detailed.sat_product_details
     load_date           date,
     record_source       text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.sat_purchase_details
 (
@@ -218,8 +219,8 @@ create table IF NOT EXISTS dbt_detailed.sat_purchase_details
     load_date             date,
     record_source         text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
 
 create table IF NOT EXISTS dbt_detailed.sat_store_details
 (
@@ -233,6 +234,27 @@ create table IF NOT EXISTS dbt_detailed.sat_store_details
     load_date      date,
     record_source  text
 )
-engine = MergeTree ORDER BY load_date
-SETTINGS index_granularity = 8192;
+    engine = MergeTree ORDER BY load_date
+        SETTINGS index_granularity = 8192;
+
+create table IF NOT EXISTS presentation.top_customers
+(
+    created_at        timestamp,
+    customer_id       Int32,
+    customer_gmv      DECIMAL(9, 2),
+    customer_category varchar(255),
+    customer_group    varchar(5)
+)
+    engine = MergeTree ORDER BY created_at
+        SETTINGS index_granularity = 8192;
+
+create table IF NOT EXISTS presentation.categories
+(
+    created_at        timestamp,
+    business_date     DATE,
+    customer_category varchar(255),
+    customer_gmv      DECIMAL(9, 2)
+)
+    engine = MergeTree ORDER BY created_at
+        SETTINGS index_granularity = 8192;
 

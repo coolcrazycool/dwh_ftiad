@@ -1,6 +1,6 @@
 from confluent_kafka import Consumer
 import hashlib
-from datetime import date
+from datetime import date, datetime as dttm
 import json
 import pandas as pd
 from confluent_kafka.admin import AdminClient, NewTopic
@@ -60,7 +60,7 @@ def compute(before, after, config: dict, schema: str):
             sat_cfg["hashdiff"]["as"]:
                 [create_hashdiff({k: v for k, v in old.items() if k in sat_cfg["hashdiff"]["from"]})],
             sat_cfg["start_time"]["as"]: [
-                date.today() if sat_cfg["start_time"]["from"] is None else process_macros(sat_cfg[
+                dttm.now() if sat_cfg["start_time"]["from"] is None else process_macros(sat_cfg[
                                                                                               "start_time"]["from"],
                                                                                           after)],
             config["load_date"]["as"]: [
