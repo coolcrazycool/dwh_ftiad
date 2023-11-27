@@ -1,4 +1,5 @@
 CREATE SCHEMA IF NOT EXISTS "dbt_detailed";
+CREATE SCHEMA IF NOT EXISTS "presentation";
 
 create table dbt_detailed.hub_categories
 (
@@ -193,5 +194,22 @@ create table dbt_detailed.sat_store_details
     effective_from timestamp,
     load_date      date,
     record_source  text
+);
+
+create table IF NOT EXISTS presentation.top_customers
+(
+    created_at        timestamp,
+    customer_id       int,
+    customer_gmv      DECIMAL(9, 2),
+    customer_category varchar(255),
+    customer_group    varchar(5)
+);
+
+create table IF NOT EXISTS presentation.categories
+(
+    created_at        timestamp,
+    business_date     DATE,
+    customer_category varchar(255),
+    customer_gmv      DECIMAL(9, 2)
 );
 

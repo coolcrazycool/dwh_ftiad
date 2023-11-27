@@ -9,8 +9,8 @@ import time
 import datetime
 from functools import reduce
 
-# engine = create_engine('postgresql://postgres:postgres@localhost:5434/postgres')
-engine = create_engine('clickhouse://clickhouse:clickhouse@localhost:8123')
+engine = create_engine('postgresql://postgres:postgres@localhost:5434/postgres')
+# engine = create_engine('clickhouse://default:@localhost:8123')
 
 
 def create_pk(data):
